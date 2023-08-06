@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/elements/myText.dart';
-import 'package:portfolio/view/screens/loginScreen/elements/customLogin.dart';
+import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/textField.dart';
 import 'package:portfolio/view/screens/loginScreen/screens/signupScreen.dart';
 
@@ -19,7 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF000000),
       body: LayoutBuilder(builder: ((context, Constraints) {
         return SingleChildScrollView(
           child: SafeArea(
@@ -63,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.normal,
                       )),
                   MyButton(
+                    myText: 'Login',
                     ontap: () {},
                     left: Constraints.maxWidth * 0.03,
                     top: Constraints.maxHeight * 0.018,

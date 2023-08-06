@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:portfolio/elements/myText.dart';
-import 'package:portfolio/view/screens/loginScreen/elements/customLogin.dart';
+import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/textField.dart';
 
 class SignUp extends StatefulWidget {
@@ -18,7 +17,6 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff000000),
       body: LayoutBuilder(builder: ((context, Constraints) {
         return SingleChildScrollView(
           child: SafeArea(
@@ -57,6 +55,7 @@ class _SignUpState extends State<SignUp> {
                         right: Constraints.maxWidth * 0.032,
                         left: Constraints.maxWidth * 0.032),
                     MyButton(
+                      myText: 'Signup',
                       bottom: Constraints.maxHeight * 0.05,
                       top: Constraints.maxHeight * 0.045,
                       left: Constraints.maxWidth * 0.03,

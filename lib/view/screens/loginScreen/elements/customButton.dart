@@ -5,19 +5,18 @@ import 'package:portfolio/elements/myText.dart';
 
 class MyButton extends StatelessWidget {
   void Function()? ontap;
-  double left;
-  double top;
-  double bottom;
-  double height;
-  double width;
+
+  double left, top, bottom, height, width;
+  String myText;
   MyButton({
     Key? key,
     required this.ontap,
-    required this.left,
-    required this.top,
     required this.bottom,
     required this.height,
+    required this.left,
+    required this.myText,
     required this.width,
+    required this.top,
   }) : super(key: key);
 
   @override
@@ -28,9 +27,7 @@ class MyButton extends StatelessWidget {
           top: top, //Constraints.maxHeight * 0.018,
           bottom: bottom), //Constraints.maxHeight * 0.03),
       child: InkWell(
-        onTap: () {
-          print('hulululu');
-        },
+        onTap: ontap,
         borderRadius: BorderRadius.circular(12),
         child: Container(
           alignment: Alignment.center,
@@ -41,7 +38,7 @@ class MyButton extends StatelessWidget {
           width: width, //Constraints.maxWidth * 0.86,
           child: MyText(
             fontSize: 34,
-            text: 'Login',
+            text: myText,
             color: Colors.white,
             fontWeight: FontWeight.normal,
           ),
