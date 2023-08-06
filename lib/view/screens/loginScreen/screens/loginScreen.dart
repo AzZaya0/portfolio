@@ -62,11 +62,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   MyButton(
                     myText: 'Login',
                     ontap: () {},
-                    left: Constraints.maxWidth * 0.03,
-                    top: Constraints.maxHeight * 0.018,
+                    left:   Constraints.maxWidth * 0.03,
+                    top:    Constraints.maxHeight * 0.018,
                     bottom: Constraints.maxHeight * 0.03,
                     height: Constraints.maxHeight * 0.077,
-                    width: Constraints.maxWidth * 0.86,
+                    width:  Constraints.maxWidth * 0.86,
                   ),
                   Center(
                     child: MyText(

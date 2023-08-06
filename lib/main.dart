@@ -1,11 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/view/screens/loginScreen/screens/loginScreen.dart';
-import 'package:portfolio/view/screens/onboardingScreen/onBoarding.dart';
+import 'package:portfolio/firebase_options.dart';
+import 'package:portfolio/view/screens/Home/elements/navigationbar.dart';
 
-void main(List<String> args) {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(MaterialApp(
-    theme: ThemeData(scaffoldBackgroundColor: Colors.black),
+    theme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.black,
+        )),
     debugShowCheckedModeBanner: false,
-    home: OnBoarding(),
+    home: MyNavigationBar(),
   ));
 }
