@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:portfolio/view/screens/Home/elements/navigationbar.dart';
 import 'package:portfolio/view/screens/Home/pages/homepage.dart';
 import 'package:portfolio/view/screens/loginScreen/screens/loginScreen.dart';
 
@@ -14,7 +15,7 @@ class AuthPage extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return HomePage();
+              return MyNavigationBar();
             } else {
               return LoginScreen();
             }
