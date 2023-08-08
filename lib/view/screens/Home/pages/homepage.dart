@@ -1,12 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:portfolio/elements/myText.dart';
-import 'package:portfolio/view/screens/Home/elements/Timeline%20Tiles%20Elements/projectTimelineChild.dart';
-import 'package:portfolio/view/screens/Home/elements/Timeline%20Tiles%20Elements/socialsTimelineChild.dart';
-import 'package:portfolio/view/screens/Home/elements/myTimeLineTiles.dart';
+import 'package:portfolio/view/screens/Home/elements/Timeline%20Tiles%20Elements/myTimeLineTiles.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-import '../elements/Timeline Tiles Elements/cvTimelineChild.dart';
+import '../elements/Timeline Tiles Elements/TimelineChild.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, Constraints) {
@@ -37,8 +37,8 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(15.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image.asset(
-                      'lib/assets/images/Mask group (1).png',
+                    child: Image.network(
+                      user!.photoURL!,
                       height: Constraints.maxHeight * 0.17,
                     ),
                   ),
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: MyText(
-                  text: "Mr.Timsina",
+                  text: user!.displayName!.trim(),
                   color: Colors.white,
                   fontSize: 38,
                   fontWeight: FontWeight.w600),
@@ -68,15 +68,24 @@ class _HomePageState extends State<HomePage> {
                   MyTimeLineTiles(
                       isfirst: true,
                       islast: false,
-                      endChild: CVTimelineChild()),
+                      endChild: TimelineChild(
+                        text: 'CV / Resume',
+                        ontap: () {},
+                      )),
                   MyTimeLineTiles(
                       isfirst: false,
                       islast: false,
-                      endChild: ProjectTimelineChild()),
+                      endChild: TimelineChild(
+                        ontap: () {},
+                        text: 'Project',
+                      )),
                   MyTimeLineTiles(
                       isfirst: false,
                       islast: true,
-                      endChild: SocialTimelineChild()),
+                      endChild: TimelineChild(
+                        ontap: () {},
+                        text: 'Socials',
+                      )),
                 ],
               ),
             )

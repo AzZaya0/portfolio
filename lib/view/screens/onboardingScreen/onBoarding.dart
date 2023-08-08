@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
 import 'package:portfolio/view/screens/loginScreen/screens/loginScreen.dart';
 import 'package:portfolio/view/screens/onboardingScreen/onBoardingContent.dart';
+import 'package:portfolio/view/services/authPage.dart';
 
 import 'onBoardingData.dart';
 
@@ -62,7 +63,7 @@ class _OnBoardingState extends State<OnBoarding> {
                           ? Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginScreen()))
+                                  builder: (context) => AuthPage()))
                           : _pageController.nextPage(
                               duration: const Duration(milliseconds: 200),
                               curve: Curves.ease);

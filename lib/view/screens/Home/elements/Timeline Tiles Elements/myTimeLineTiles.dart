@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-import 'package:portfolio/view/screens/Home/elements/Timeline%20Tiles%20Elements/cvTimelineChild.dart';
-
 class MyTimeLineTiles extends StatelessWidget {
   bool isfirst;
   bool islast;

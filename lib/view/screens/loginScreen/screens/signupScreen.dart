@@ -3,6 +3,8 @@ import 'package:portfolio/elements/myText.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/textField.dart';
 
+import 'package:portfolio/view/services/authService.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -74,9 +76,14 @@ class _SignUpState extends State<SignUp> {
                       height: Constraints.maxHeight * 0.03,
                     ),
                     Center(
-                      child: Image.asset(
-                        'lib/assets/icons/google.png',
-                        height: Constraints.maxHeight * 0.08,
+                      child: InkWell(
+                        onTap: () {
+                          AuthService().signInWithGoogle();
+                        },
+                        child: Image.asset(
+                          'lib/assets/icons/google.png',
+                          height: Constraints.maxHeight * 0.08,
+                        ),
                       ),
                     )
                   ],
