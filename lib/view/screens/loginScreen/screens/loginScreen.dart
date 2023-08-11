@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/elements/myText.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
@@ -15,6 +17,40 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final usernameCOntroller = TextEditingController();
   final passController = TextEditingController();
+
+  void signIn() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: usernameCOntroller.text, password: passController.text);
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      showError(e.code);
+    }
+  }
+
+  void showError(String errorMessage) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Center(
+              child: Text(
+                errorMessage,
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       )),
                   MyButton(
                     myText: 'Login',
-                    ontap: () {},
+                    ontap: signIn,
                     left: Constraints.maxWidth * 0.03,
                     top: Constraints.maxHeight * 0.018,
                     bottom: Constraints.maxHeight * 0.03,
@@ -82,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Center(
                     child: InkWell(
+                      borderRadius: BorderRadius.circular(100),
                       onTap: () {
                         AuthService().signInWithGoogle();
                       },

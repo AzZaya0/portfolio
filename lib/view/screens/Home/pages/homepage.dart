@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_import
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:portfolio/elements/myText.dart';
 import 'package:portfolio/view/screens/Home/elements/Timeline%20Tiles%20Elements/myTimeLineTiles.dart';
+
 import '../elements/Timeline Tiles Elements/TimelineChild.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,7 +16,27 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+@override
 class _HomePageState extends State<HomePage> {
+  final user = FirebaseAuth.instance.currentUser!;
+
+  List<String> documentEmail = [];
+  Future getDocEmail() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .get()
+        .then((snapchot) => snapchot.docs.forEach((element) {
+              print(element.reference);
+              documentEmail.add(element.reference.id);
+            }));
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDocEmail();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, Constraints) {
@@ -23,22 +46,27 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: Constraints.maxHeight * 0.15,
+              height: Constraints.maxHeight * 0.1,
             ),
             Center(
               child: Container(
-                height: Constraints.maxHeight * 0.2,
+                height: Constraints.maxHeight * 0.18,
                 decoration: BoxDecoration(
                     color: Color(0xff434343),
                     borderRadius: BorderRadius.circular(100)),
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.asset(
-                      'lib/assets/images/Mask group (1).png',
-                      height: Constraints.maxHeight * 0.17,
-                    ),
+                    borderRadius: BorderRadius.circular(200),
+                    child: (user.photoURL == null)
+                        ? Image.asset(
+                            'lib/assets/images/person.png',
+                            scale: 0.5,
+                          )
+                        : Image.network(
+                            user.photoURL!,
+                            scale: 0.5,
+                          ),
                   ),
                 ),
               ),
@@ -54,7 +82,9 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: MyText(
-                  text: "Mr.Timsina",
+                  text: (user.displayName == null)
+                      ? user.email!.split('@')[0]
+                      : user!.displayName!.trim(),
                   color: Colors.white,
                   fontSize: 38,
                   fontWeight: FontWeight.w600),
@@ -87,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                       )),
                 ],
               ),
-            )
+            ),
           ],
         )),
       );

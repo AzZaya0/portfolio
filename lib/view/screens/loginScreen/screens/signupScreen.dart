@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/elements/myText.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
@@ -16,6 +19,54 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final passController = TextEditingController();
   final confirmPassController = TextEditingController();
+
+  void SignUp() async {
+    if (passController.text == confirmPassController.text) {
+      try {
+        UserCredential usercredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: emailController.text.trim(),
+                password: passController.text.trim());
+
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(usercredential.user!.email)
+            .set(
+          {
+            'email': emailController.text.trim(),
+            'username': emailController.text.split('@')[0],
+            'password': passController.text.trim(),
+            'gender': '',
+            'photoUrl': '',
+            'number': '',
+          },
+        );
+
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        showwError(e.code);
+      }
+    } else {
+      showwError('Password doesn\'t match');
+    }
+  }
+
+  void showwError(String message) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Center(
+              child: Text(
+                message,
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                       left: Constraints.maxWidth * 0.03,
                       height: Constraints.maxHeight * 0.077,
                       width: Constraints.maxWidth * 0.86,
-                      ontap: null,
+                      ontap: SignUp,
                     ),
                     Center(
                       child: MyText(

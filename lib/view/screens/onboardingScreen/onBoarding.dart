@@ -1,10 +1,13 @@
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
-import 'package:portfolio/view/screens/loginScreen/screens/loginScreen.dart';
 import 'package:portfolio/view/screens/onboardingScreen/onBoardingContent.dart';
 import 'package:portfolio/view/services/authPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'checkOnboarding.dart';
 import 'onBoardingData.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -59,19 +62,22 @@ class _OnBoardingState extends State<OnBoarding> {
                 ),
                 MyButton(
                     ontap: () {
-                      currentpage == 2
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AuthPage()))
-                          : _pageController.nextPage(
-                              duration: const Duration(milliseconds: 200),
-                              curve: Curves.ease);
+                      if (currentpage == 2) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AuthPage()));
+                        CheckOnBoarding().savedata(true);
+                      } else {
+                        _pageController.nextPage(
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.ease);
+                      }
                     },
                     bottom: Constraints.maxHeight * 0.03,
                     height: Constraints.maxHeight * 0.077,
                     left: Constraints.maxWidth * 0.01,
-                    myText: 'Next',
+                    myText: currentpage == 2 ? 'Get Started' : 'Next',
                     width: Constraints.maxWidth * 0.86,
                     top: Constraints.minHeight * 0.018)
               ],
