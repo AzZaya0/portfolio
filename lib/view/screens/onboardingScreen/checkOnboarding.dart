@@ -14,10 +14,10 @@ class CheckOnBoarding extends StatefulWidget {
     SharedPreferences pref = await SharedPreferences.getInstance();
     bool? value = pref.getBool('onboarding');
     if (value != null) {
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => AuthPage()));
     } else {
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => OnBoarding()));
     }
     ;
@@ -39,6 +39,15 @@ class _CheckOnBoardingState extends State<CheckOnBoarding> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Container(
+        alignment: Alignment(0, 0),
+        child: Image.asset(
+          'lib/assets/images/ic_launcher.png',
+          height: 100,
+          width: 100,
+        ),
+      ),
+    );
   }
 }

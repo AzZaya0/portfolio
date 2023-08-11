@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyTextField extends StatelessWidget {
+  Widget ?suffixIcon;
   String? text;
   double? top;
   double? right;
@@ -12,12 +13,14 @@ class MyTextField extends StatelessWidget {
   TextEditingController? controller;
   MyTextField({
     Key? key,
+    
     required this.text,
     required this.top,
     required this.right,
     required this.left,
     required this.obscureText,
     this.controller,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -29,10 +32,13 @@ class MyTextField extends StatelessWidget {
         right: right!,
       ),
       child: TextFormField(
+        
         controller: controller,
         obscureText: obscureText!,
         style: GoogleFonts.ubuntu(fontSize: 23, color: Colors.white),
+        
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
             labelText: text!,
             labelStyle: GoogleFonts.ubuntu(fontSize: 22, color: Colors.white),
             filled: true,

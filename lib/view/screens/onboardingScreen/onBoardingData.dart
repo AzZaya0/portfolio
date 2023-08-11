@@ -1,4 +1,3 @@
-
 class Onboard {
   final String image, title, description;
   Onboard({
@@ -18,7 +17,7 @@ final List<Onboard> demo_data = [
       title: 'Increase\nConnections',
       description: 'Add friends and\ncommunicate with them.'),
   Onboard(
-      image: 'lib/assets/images/magnet.png',
-      title: 'title',
-      description: 'description')
+      image: 'lib/assets/images/getConnected.png',
+      title: 'Stay\nConnected',
+      description: 'We\'d appreciate\nit if you could use the app\nproperly.'),
 ];
