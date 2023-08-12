@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/elements/myText.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/textField.dart';
+import 'package:portfolio/view/screens/loginScreen/screens/forgotpassword.dart';
 import 'package:portfolio/view/screens/loginScreen/screens/signupScreen.dart';
 import 'package:portfolio/view/services/authService.dart';
 
@@ -100,11 +101,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.only(
                           top: Constraints.maxHeight * 0.035,
                           left: Constraints.maxWidth * 0.5),
-                      child: MyText(
-                        text: 'Forgot Password?',
-                        fontSize: 20,
-                        color: Color(0xff7e7e7e),
-                        fontWeight: FontWeight.normal,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ForgotPasswordPage();
+                          }));
+                        },
+                        child: MyText(
+                          text: 'Forgot Password?',
+                          fontSize: 20,
+                          color: Color(0xff7e7e7e),
+                          fontWeight: FontWeight.normal,
+                        ),
                       )),
                   MyButton(
                     myText: 'Login',
