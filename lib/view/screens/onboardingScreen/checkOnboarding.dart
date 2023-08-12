@@ -43,7 +43,7 @@ class _CheckOnBoardingState extends State<CheckOnBoarding> {
       body: Container(
         alignment: Alignment(0, 0),
         child: Image.asset(
-          'lib/assets/images/ic_launcher.png',
+          'lib/assets/images/ic_launcherCircular.png',
           height: 100,
           width: 100,
         ),

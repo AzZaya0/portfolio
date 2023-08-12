@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         },
                         child: _obsecureText
-                            ? Icon(Icons.visibility)
+                            ? Icon(Icons.visibility_off)
                             : Icon(Icons.visibility)),
                     obscureText: _obsecureText,
                     text: 'Password',

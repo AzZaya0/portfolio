@@ -21,6 +21,8 @@ dependencies:
   google_sign_in: ^6.1.4
   cloud_firestore: ^4.8.4
   shared_preferences: ^2.2.0
+  page_transition: ^2.0.9
+  animated_splash_screen: ^1.3.0
 
 dev_dependencies:
   flutter_test:

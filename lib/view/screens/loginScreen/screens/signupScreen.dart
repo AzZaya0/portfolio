@@ -19,6 +19,8 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final passController = TextEditingController();
   final confirmPassController = TextEditingController();
+  bool _obsecuretext = true;
+  bool _obsecureText = true;
 
   void SignUp() async {
     if (passController.text == confirmPassController.text) {
@@ -94,14 +96,30 @@ class _SignUpState extends State<SignUp> {
                         right: Constraints.maxWidth * 0.032,
                         left: Constraints.maxWidth * 0.032),
                     MyTextField(
-                        obscureText: true,
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            _obsecuretext = !_obsecuretext;
+                          },
+                          child: Icon(_obsecuretext
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
+                        obscureText: _obsecuretext,
                         controller: passController,
                         text: 'Password ',
                         top: Constraints.maxHeight * 0.05,
                         right: Constraints.maxWidth * 0.032,
                         left: Constraints.maxWidth * 0.032),
                     MyTextField(
-                        obscureText: true,
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            _obsecureText = !_obsecureText;
+                          },
+                          child: Icon(_obsecureText
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
+                        obscureText: _obsecureText,
                         controller: confirmPassController,
                         text: 'Confirm password ',
                         top: Constraints.maxHeight * 0.05,
