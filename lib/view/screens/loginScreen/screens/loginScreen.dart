@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: InkWell(
                       borderRadius: BorderRadius.circular(100),
-                      onTap: () {
+                      onTap: () async {
                         AuthService().signInWithGoogle();
                       },
                       child: Image.asset(

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +19,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   Future _sendlink() async {
     try {
-      FirebaseAuth.instance
+      //if the try catch is not working and throwing exceptation than it means
+      //you havent use await keywoard
+      await FirebaseAuth.instance
           .sendPasswordResetEmail(email: EmailController.text.trim())
           .then((value) => showDialog(
               context: context,
@@ -34,7 +36,23 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 );
               }));
     } on FirebaseAuthException catch (e) {
-      showError(e.message.toString());
+      if (e.code.toString() == 'invalid-email') {
+        setState(() {
+          showError('Please provide a valid email address.');
+        });
+      }
+
+      if (EmailController.text.trim() == '') {
+        setState(() {
+          showError('Enter your Email.');
+        });
+      }
+
+      if (e.code.toString() == 'user-not-found') {
+        setState(() {
+          showError('User not found.');
+        });
+      }
     }
   }
 
