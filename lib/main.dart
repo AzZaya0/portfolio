@@ -6,7 +6,8 @@ import 'package:portfolio/firebase_options.dart';
 import 'package:portfolio/view/screens/onboardingScreen/checkOnboarding.dart';
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding
+      .ensureInitialized(); //to use firebase and other services
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(MaterialApp(
@@ -16,14 +17,18 @@ Future main() async {
           backgroundColor: Colors.black,
         )),
     debugShowCheckedModeBanner: false,
-    home: AnimatedSplashScreen(
-        animationDuration: Duration(milliseconds: 400),
-        splash:
-            Image.asset('lib/assets/images/ic_launcherCircular.png', scale: 1),
-        nextScreen: CheckOnBoarding(),
-        backgroundColor: Colors.black,
-        pageTransitionType: PageTransitionType.fade,
-        duration: 1500),
+    home:
+        //we are using Animated splash screen to show the logo while the app is run
+        AnimatedSplashScreen(
+            animationDuration: Duration(milliseconds: 400),
+            splash: Image.asset('lib/assets/images/ic_launcherCircular.png',
+                scale: 1),
+            nextScreen:
+                CheckOnBoarding(), //this page decides if the user is new or not
+            // if new than the onboarding screen is shown whhen its run for the first time
+            backgroundColor: Colors.black,
+            pageTransitionType: PageTransitionType.fade,
+            duration: 1500),
     //onboarding screen only open when the user is logout
   ));
 }

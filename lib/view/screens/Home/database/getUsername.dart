@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
 import 'package:portfolio/elements/myText.dart';
 import 'package:portfolio/view/screens/Home/pages/chat.dart';
@@ -32,7 +31,11 @@ class GetUsername extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ChatPage()));
+                                    builder: (context) => ChatPage(
+                                          recieverphotoUrl: data['photoUrl'],
+                                          recieverEmail: data['email'],
+                                          recieverUsername: data['username'],
+                                        )));
                           },
                           child: Container(
                               decoration: BoxDecoration(

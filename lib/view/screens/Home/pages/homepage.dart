@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:portfolio/elements/myText.dart';
 import 'package:portfolio/view/screens/Home/elements/Timeline%20Tiles%20Elements/myTimeLineTiles.dart';
+import 'package:portfolio/view/screens/Home/pages/profilepage.dart';
 
 import '../elements/Timeline Tiles Elements/TimelineChild.dart';
 
@@ -49,24 +50,30 @@ class _HomePageState extends State<HomePage> {
               height: Constraints.maxHeight * 0.1,
             ),
             Center(
-              child: Container(
-                height: Constraints.maxHeight * 0.18,
-                decoration: BoxDecoration(
-                    color: Color(0xff434343),
-                    borderRadius: BorderRadius.circular(100)),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(200),
-                    child: (user.photoURL == null)
-                        ? Image.asset(
-                            'lib/assets/images/person.png',
-                            scale: 0.5,
-                          )
-                        : Image.network(
-                            user.photoURL!,
-                            scale: 0.5,
-                          ),
+              child: GestureDetector(
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                  return ProfilePage();
+                })),
+                child: Container(
+                  height: Constraints.maxHeight * 0.18,
+                  decoration: BoxDecoration(
+                      color: Color(0xff434343),
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(200),
+                      child: (user.photoURL == null)
+                          ? Image.asset(
+                              'lib/assets/images/person.png',
+                              scale: 0.5,
+                            )
+                          : Image.network(
+                              user.photoURL!,
+                              scale: 0.5,
+                            ),
+                    ),
                   ),
                 ),
               ),
