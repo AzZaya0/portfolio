@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:portfolio/firebase_options.dart';
+import 'package:portfolio/view/screens/Home/pages/genderPage.dart';
 import 'package:portfolio/view/screens/onboardingScreen/checkOnboarding.dart';
 
 Future main() async {
