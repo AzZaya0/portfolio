@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/elements/myText.dart';
+import 'package:portfolio/view/screens/Home/pages/profilepage.dart';
 
 import '../elements/genderTile.dart';
 
@@ -11,10 +16,10 @@ class Gender extends StatefulWidget {
 }
 
 class _GenderState extends State<Gender> {
-
-  
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
     return Scaffold(
       body: LayoutBuilder(
           builder: (context, Constraints) => Container(
@@ -45,7 +50,16 @@ class _GenderState extends State<Gender> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GenderTile(
-                            ontap: () {},
+                            ontap: () async {
+                              await users
+                                  .doc(user.email!)
+                                  .update({'gender': 'Male'});
+                              Navigator.pop(context);
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ProfilePage();
+                              }));
+                            },
                             image: 'lib/assets/images/male.png',
                             text: 'Male',
                             height: Constraints.maxHeight * 0.24,
@@ -53,7 +67,16 @@ class _GenderState extends State<Gender> {
                             top: Constraints.maxHeight * 0.02,
                             bottom: Constraints.maxHeight * 0.04),
                         GenderTile(
-                            ontap: () {},
+                            ontap: () async {
+                              await users
+                                  .doc(user.email!)
+                                  .update({'gender': 'Female'});
+                              Navigator.pop(context);
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ProfilePage();
+                              }));
+                            },
                             image: 'lib/assets/images/female.png',
                             text: 'Female',
                             height: Constraints.maxHeight * 0.24,
@@ -64,7 +87,16 @@ class _GenderState extends State<Gender> {
                     ),
                     Center(
                       child: GenderTile(
-                          ontap: () {},
+                          ontap: () async {
+                            await users
+                                .doc(user.email!)
+                                .update({'gender': 'Others'});
+                            Navigator.pop(context);
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ProfilePage();
+                            }));
+                          },
                           image: 'lib/assets/images/others.png',
                           text: 'Others',
                           height: Constraints.maxHeight * 0.24,

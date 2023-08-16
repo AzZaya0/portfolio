@@ -16,6 +16,7 @@ class AuthService {
           {
             'email': guser.email,
             'username': guser.email.split('@')[0],
+            'profession': '',
             'gender': '',
             'photoUrl': guser.photoUrl,
             'number': '',
