@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final String genderfield = 'Gender';
   final String numfield = 'Number';
   File? _image;
-  var finalimage;
+
 //-----------------------------------------------------------------------------\\
 //---------------------------------Function Image picker from device --------------------------------------------\\
   Future getImage() async {
