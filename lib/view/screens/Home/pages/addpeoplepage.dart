@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/elements/myText.dart';
-import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/textField.dart';
 
 class AddPeoplePage extends StatefulWidget {

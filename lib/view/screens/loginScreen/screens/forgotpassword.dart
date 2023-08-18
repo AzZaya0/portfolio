@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,18 +36,21 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               }));
     } on FirebaseAuthException catch (e) {
       if (e.code.toString() == 'invalid-email') {
+        //if the email is not valid
         setState(() {
           showError('Please provide a valid email address.');
         });
       }
 
       if (EmailController.text.trim() == '') {
+        // if the Email is empty
         setState(() {
           showError('Enter your Email.');
         });
       }
 
       if (e.code.toString() == 'user-not-found') {
+        //if There is no  User in the database
         setState(() {
           showError('User not found.');
         });

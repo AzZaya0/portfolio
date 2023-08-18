@@ -1,8 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 //import section
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:portfolio/elements/myText.dart';
 import 'package:portfolio/view/screens/Home/elements/profileTile.dart';
 import 'package:portfolio/view/screens/Home/pages/genderPage.dart';
@@ -27,6 +31,29 @@ class _ProfilePageState extends State<ProfilePage> {
   final String proffield = 'Profession';
   final String genderfield = 'Gender';
   final String numfield = 'Number';
+  File? _image;
+  var finalimage;
+//-----------------------------------------------------------------------------\\
+//---------------------------------Function Image picker from device --------------------------------------------\\
+  Future getImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) {
+      return;
+    }
+    final imagetemporary = File(image.path);
+    final croppedimage = await ImageCropper().cropImage(
+        sourcePath: imagetemporary.path,
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1));
+    if (croppedimage == null) {
+      return;
+    }
+    setState(() {
+      imageCache.clear();
+      this._image = File(croppedimage!.path);
+    });
+  }
+
+//-----------------------------------------------------------------------------\\
 //-----------------------------------------------------------------------------\\
   @override
   @override
@@ -138,28 +165,41 @@ class _ProfilePageState extends State<ProfilePage> {
 //-------------------------------------------------------------------------------------------\\
 //--------------------------------------------- Profile Image starts ----------------------------------------------\\
                         Center(
-                          child: Container(
-                            height: constraints.maxHeight * 0.18,
-                            decoration: BoxDecoration(
-                                color: const Color(0xff434343),
-                                borderRadius: BorderRadius.circular(100)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(200),
-                                child: ("$data['photoUrl']" == '')
-                                    ? Image.asset(
-                                        'lib/assets/images/person.png',
-                                        scale: 0.5,
-                                      )
-                                    : Image.network(
-                                        data['photoUrl'],
-                                        scale: 1,
-                                      ),
+                          child: GestureDetector(
+                            onTap: getImage,
+                            child: Container(
+                              height: constraints.maxHeight * 0.18,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff434343),
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(200),
+                                    child: _image != null
+                                        ? Image.file(
+                                            _image!,
+                                            scale: 1,
+                                            fit: BoxFit.fill,
+                                          )
+                                        : Image.asset(
+                                            'lib/assets/images/person.png',
+                                            scale: 0.5,
+                                          )
+                                    // child: ("$data['photoUrl']" == '')
+                                    //     ? Image.asset(
+                                    //         'lib/assets/images/person.png',
+                                    //         scale: 0.5,
+                                    //       )
+                                    //     : Image.network(
+                                    //         data['photoUrl'],
+                                    //         scale: 1,
+                                    ),
                               ),
                             ),
                           ),
                         ),
+
 //-------------------------------------------------------------------------------------------------------------\\
 //----------------------------------------- Username filed starts --------------------------------------------------\\
                         Padding(
@@ -205,7 +245,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     MaterialPageRoute(builder: (context) {
                                   return Gender();
                                 }));
-                                setState(() {});
                               },
                               height: constraints.maxHeight * 0.08,
                               Field: genderfield,
