@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/elements/myText.dart';
+import 'package:portfolio/view/screens/loginScreen/Providers/signupProvider.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/customButton.dart';
 import 'package:portfolio/view/screens/loginScreen/elements/textField.dart';
 
 import 'package:portfolio/view/services/authService.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -16,62 +18,10 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final emailController = TextEditingController();
-  final passController = TextEditingController();
-  final confirmPassController = TextEditingController();
-  bool _obsecuretext = true;
-  bool _obsecureText = true;
-
-  void SignUp() async {
-    if (passController.text == confirmPassController.text) {
-      try {
-        UserCredential usercredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: emailController.text.trim(),
-                password: passController.text.trim());
-
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(usercredential.user!.email)
-            .set(
-          {
-            'email': emailController.text.trim(),
-            'username': emailController.text.split('@')[0],
-            'password': passController.text.trim(),
-            'profession': '',
-            'gender': '',
-            'photoUrl': '',
-            'number': '',
-          },
-        );
-
-        // ignore: use_build_context_synchronously
-        Navigator.pop(context);
-      } on FirebaseAuthException catch (e) {
-        showwError(e.code);
-      }
-    } else {
-      showwError('Password doesn\'t match');
-    }
-  }
-
-  void showwError(String message) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return CupertinoAlertDialog(
-            title: Center(
-              child: Text(
-                message,
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
+    //---------------------provider---------------------------//
+    final signuppProvider = Provider.of<SignupProvider>(context, listen: false);
     return Scaffold(
       body: LayoutBuilder(builder: ((context, Constraints) {
         return SingleChildScrollView(
@@ -91,7 +41,7 @@ class _SignUpState extends State<SignUp> {
                         fontWeight: FontWeight.w600),
                     MyTextField(
                         obscureText: false,
-                        controller: emailController,
+                        controller: signuppProvider.emaillController,
                         text: 'Email',
                         top: Constraints.maxHeight * 0.135,
                         right: Constraints.maxWidth * 0.032,
@@ -99,14 +49,15 @@ class _SignUpState extends State<SignUp> {
                     MyTextField(
                         suffixIcon: GestureDetector(
                           onTap: () {
-                            _obsecuretext = !_obsecuretext;
+                            signuppProvider.obsecuretext =
+                                !signuppProvider.obsecuretext;
                           },
-                          child: Icon(_obsecuretext
+                          child: Icon(signuppProvider.obsecureText
                               ? Icons.visibility_off
                               : Icons.visibility),
                         ),
-                        obscureText: _obsecuretext,
-                        controller: passController,
+                        obscureText: signuppProvider.obsecuretext,
+                        controller: signuppProvider.passCONtroller,
                         text: 'Password ',
                         top: Constraints.maxHeight * 0.05,
                         right: Constraints.maxWidth * 0.032,
@@ -114,14 +65,15 @@ class _SignUpState extends State<SignUp> {
                     MyTextField(
                         suffixIcon: GestureDetector(
                           onTap: () {
-                            _obsecureText = !_obsecureText;
+                            signuppProvider.obsecuretext =
+                                !signuppProvider.obsecuretext;
                           },
-                          child: Icon(_obsecureText
+                          child: Icon(signuppProvider.obsecureText
                               ? Icons.visibility_off
                               : Icons.visibility),
                         ),
-                        obscureText: _obsecureText,
-                        controller: confirmPassController,
+                        obscureText: signuppProvider.obsecureText,
+                        controller: signuppProvider.confirmPassControl,
                         text: 'Confirm password ',
                         top: Constraints.maxHeight * 0.05,
                         right: Constraints.maxWidth * 0.032,
@@ -133,7 +85,9 @@ class _SignUpState extends State<SignUp> {
                       left: Constraints.maxWidth * 0.03,
                       height: Constraints.maxHeight * 0.077,
                       width: Constraints.maxWidth * 0.86,
-                      ontap: SignUp,
+                      ontap: () {
+                        signuppProvider.SignUp(context);
+                      },
                     ),
                     Center(
                       child: MyText(
