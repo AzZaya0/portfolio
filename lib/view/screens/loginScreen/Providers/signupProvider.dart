@@ -5,14 +5,24 @@ import 'package:flutter/material.dart';
 
 class SignupProvider with ChangeNotifier {
   //---------------- variables with their functions -------------------------//
-
-//------------------ Obsecure text functions --------------------------//
-  bool _obsecuretext = true;
-  bool get obsecuretext => _obsecuretext;
+//----------------------------------------------------------------------------//
+//------------------ Obsecure text and its function --------------------------//
+  bool _obsecureTextPass = true;
+  bool get obsecureTextPass => _obsecureTextPass;
   bool _obsecureText = true;
   bool get obsecureText => _obsecureText;
 
-  //-------------------------Variables to store user credentials--------------------------//
+  void eyeButtonSwitch() {
+    _obsecureTextPass = !_obsecureTextPass;
+    notifyListeners();
+  }
+
+  void eyeButtonSwitchConformPass() {
+    _obsecureText = !_obsecureText;
+    notifyListeners();
+  }
+//------------------------------------------------------------------------------------------//
+  //------------------------- Variables to store user credentials --------------------------//
 
   final emailController = TextEditingController();
   TextEditingController get emaillController => emailController;
@@ -45,17 +55,17 @@ class SignupProvider with ChangeNotifier {
             'number': '',
           },
         );
-
-        // ignore: use_build_context_synchronously
         Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
-        showwError(e.code);
+        showwError(e.code, context);
       }
     } else {
-      showwError('Password doesn\'t match');
+      showwError('Password doesn\'t match', context);
     }
   }
+//------------------------------------------------------------------------------------------//
 
+//----------------------------- Function that show error message ----------------------------//
   void showwError(String message, context) {
     showDialog(
         context: context,

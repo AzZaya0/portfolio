@@ -10,10 +10,14 @@ class AddPeoplePage extends StatefulWidget {
   State<AddPeoplePage> createState() => _AddPeoplePageState();
 }
 
-class _AddPeoplePageState extends State<AddPeoplePage> {
+class _AddPeoplePageState extends State<AddPeoplePage>
+    with AutomaticKeepAliveClientMixin<AddPeoplePage> {
+  bool get wantKeepAlive => true;
+
   final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     //database
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     return FutureBuilder<DocumentSnapshot>(

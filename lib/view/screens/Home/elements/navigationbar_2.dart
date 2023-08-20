@@ -45,7 +45,6 @@ class _MyNavigationBar2State extends State<MyNavigationBar2> {
       if (index == 1) {
         addcolor = Color(0xff03B44A);
         homecolor = Colors.white;
-
         messagecolor = Colors.white;
         settingcolor = Colors.white;
       }
@@ -62,6 +61,12 @@ class _MyNavigationBar2State extends State<MyNavigationBar2> {
         messagecolor = Colors.white;
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override

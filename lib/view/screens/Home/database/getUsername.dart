@@ -72,11 +72,33 @@ class GetUsername extends StatelessWidget {
                   );
                 });
               }
-              return MyText(
-                  text: 'Loading.....',
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.normal);
+              return Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xff323232),
+                      borderRadius: BorderRadius.circular(12)),
+                  height: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(200),
+                            child: Container(
+                              height: 80,
+                              width: 80,
+                              color: Color(0xff525252),
+                            )),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        MyText(
+                            text: '------------',
+                            color: Color(0xff525252),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)
+                      ],
+                    ),
+                  ));
             }));
   }
 }

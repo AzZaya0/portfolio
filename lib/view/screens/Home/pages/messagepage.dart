@@ -13,7 +13,9 @@ class MessagePage extends StatefulWidget {
 }
 
 //--------------------Database------------------------\\
-class _MessagePageState extends State<MessagePage> {
+class _MessagePageState extends State<MessagePage>
+    with AutomaticKeepAliveClientMixin<MessagePage> {
+  bool get wantKeepAlive => false;
   final user = FirebaseAuth.instance.currentUser!;
   List<String> documentid = [];
   Future getDocid() async {
@@ -30,6 +32,7 @@ class _MessagePageState extends State<MessagePage> {
 //----------------The above code is to get The document id of every user from database----\\
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(child: Scaffold(
       body: LayoutBuilder(builder: (context, Constraints) {
         return Container(
