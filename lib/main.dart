@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:portfolio/firebase_options.dart';
+import 'package:portfolio/view/screens/loginScreen/Providers/fotgotpassProvider.dart';
 import 'package:portfolio/view/screens/loginScreen/Providers/loginProvider.dart';
 import 'package:portfolio/view/screens/loginScreen/Providers/signupProvider.dart';
 import 'package:portfolio/view/screens/onboardingScreen/checkOnboarding.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => LoginProvider()),
           ChangeNotifierProvider(create: (_) => SignupProvider()),
+          ChangeNotifierProvider(create: (_) => ForgotpassProvider())
         ], //we add multiple provider over here
         child: MaterialApp(
           theme: ThemeData(

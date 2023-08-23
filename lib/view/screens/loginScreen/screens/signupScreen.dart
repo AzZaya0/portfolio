@@ -19,6 +19,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
 //-------------- Provider signuppProvider to access data from signup Provider----------------//
     final signuppProvider = Provider.of<SignupProvider>(context, listen: false);
+    print('build');
     return Scaffold(
       body: LayoutBuilder(builder: ((context, Constraints) {
         return SingleChildScrollView(
@@ -47,6 +48,7 @@ class _SignUpState extends State<SignUp> {
 //<------------------ Consumer wedget to rebuild  ----------------------------//
                     Consumer<SignupProvider>(
                         builder: (context, Snapshot, child) {
+                      print('hellp');
                       return MyTextField(
                           suffixIcon: GestureDetector(
                             onTap: () {

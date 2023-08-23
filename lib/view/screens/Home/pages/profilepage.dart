@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,7 +22,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 //----------- Veriable and Instance Declarations.--------------------------\\
-  final user = FirebaseAuth.instance.currentUser!; //for current user
+  final Cuser = FirebaseAuth.instance.currentUser!; //for current user
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController genderController = TextEditingController();
@@ -60,7 +61,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     //------------------ Function to edit profile (Update with Alert box)-------------------\\
     String NewValue = '';
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    CollectionReference users = FirebaseFirestore.instance.collection(
+        'users'); // ------------------------------------------------------------- Firebase Refrance
+
     Future<void> editprofile(
         String Field, double boxheight, double boxwidth) async {
       await showDialog(
@@ -136,16 +139,17 @@ class _ProfilePageState extends State<ProfilePage> {
       if (NewValue.trim().length > 0) {
         //update only if there is value in textfield
         await users
-            .doc(user.email!)
+            .doc(Cuser.email!)
             .update({Field.toLowerCase(): NewValue.trim()});
         setState(() {});
       }
     }
 
-//-------------------------------------------------------------------------------------------\\
+
+//------------------------------------------- MAIN ------------------------------------------------\\
 //--------------------------------------------- Futue Builder to Fetch data (data) -------------------\\
     return FutureBuilder<DocumentSnapshot>(
-        future: users.doc(user.email!).get(),
+        future: users.doc(Cuser.email!).get(),
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =

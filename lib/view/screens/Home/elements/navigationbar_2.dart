@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/view/screens/Home/pages/addpeoplepage.dart';
 import 'package:portfolio/view/screens/Home/pages/homepage.dart';
-import 'package:portfolio/view/screens/Home/pages/messagepage.dart';
+
+import 'package:portfolio/view/screens/Home/pages/newMessagepage.dart';
 import 'package:portfolio/view/screens/Home/pages/settingpage.dart';
 
 class MyNavigationBar2 extends StatefulWidget {
@@ -24,7 +25,7 @@ class _MyNavigationBar2State extends State<MyNavigationBar2> {
   List<Widget> _pages = [
     const HomePage(),
     const AddPeoplePage(),
-    const MessagePage(),
+    const NewMessagePage(),
     const SettingPage()
   ];
   @override

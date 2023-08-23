@@ -18,7 +18,7 @@ class AuthService {
             'username': guser.email.split('@')[0],
             'profession': '',
             'gender': '',
-            'photoUrl': guser.photoUrl,
+            'photoUrl': guser.photoUrl == null ? '' : guser.photoUrl,
             'number': '',
           },
         );

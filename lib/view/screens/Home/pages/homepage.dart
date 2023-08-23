@@ -43,89 +43,92 @@ class _HomePageState extends State<HomePage> {
     return LayoutBuilder(builder: (context, Constraints) {
       return SafeArea(
         child: Scaffold(
-            body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: Constraints.maxHeight * 0.1,
-            ),
-            Center(
-              child: GestureDetector(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                  return ProfilePage();
-                })),
-                child: Container(
-                  height: Constraints.maxHeight * 0.18,
-                  decoration: BoxDecoration(
-                      color: Color(0xff434343),
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(200),
-                      child: (user.photoURL == null)
-                          ? Image.asset(
-                              'lib/assets/images/person.png',
-                              scale: 0.5,
-                            )
-                          : Image.network(
-                              user.photoURL!,
-                              scale: 0.5,
-                            ),
+            body: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: Constraints.maxHeight * 0.1,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) {
+                    return ProfilePage();
+                  })),
+                  child: Container(
+                    height: Constraints.maxHeight * 0.18,
+                    decoration: BoxDecoration(
+                        color: Color(0xff434343),
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(200),
+                        child: (user.photoURL == null)
+                            ? Image.asset(
+                                'lib/assets/images/person.png',
+                                scale: 0.5,
+                              )
+                            : Image.network(
+                                user.photoURL!,
+                                scale: 0.5,
+                              ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: MyText(
-                  text: "Flutter Developer",
-                  color: Color(0xffB1B1B1),
-                  fontSize: 20,
-                  fontWeight: FontWeight.normal),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: MyText(
-                  text: (user.displayName == null)
-                      ? user.email!.split('@')[0]
-                      : user!.displayName!.trim(),
-                  color: Colors.white,
-                  fontSize: 38,
-                  fontWeight: FontWeight.w600),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: Constraints.maxWidth * 0.15),
-              child: Column(
-                children: [
-                  // on the OnTap function of the Timeline Tiles just add navigation.push and navigate
-                  MyTimeLineTiles(
-                      isfirst: true,
-                      islast: false,
-                      endChild: TimelineChild(
-                        text: 'CV / Resume',
-                        ontap: () {},
-                      )),
-                  MyTimeLineTiles(
-                      isfirst: false,
-                      islast: false,
-                      endChild: TimelineChild(
-                        ontap: () {},
-                        text: 'Project',
-                      )),
-                  MyTimeLineTiles(
-                      isfirst: false,
-                      islast: true,
-                      endChild: TimelineChild(
-                        ontap: () {},
-                        text: 'Socials',
-                      )),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: MyText(
+                    text: "Flutter Developer",
+                    color: Color(0xffB1B1B1),
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: MyText(
+                    text: (user.displayName == null)
+                        ? user.email!.split('@')[0]
+                        : user!.displayName!.trim(),
+                    color: Colors.white,
+                    fontSize: 38,
+                    fontWeight: FontWeight.w600),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: Constraints.maxWidth * 0.15),
+                child: Column(
+                  children: [
+                    // on the OnTap function of the Timeline Tiles just add navigation.push and navigate
+                    MyTimeLineTiles(
+                        isfirst: true,
+                        islast: false,
+                        endChild: TimelineChild(
+                          text: 'CV / Resume',
+                          ontap: () {},
+                        )),
+                    MyTimeLineTiles(
+                        isfirst: false,
+                        islast: false,
+                        endChild: TimelineChild(
+                          ontap: () {},
+                          text: 'Project',
+                        )),
+                    MyTimeLineTiles(
+                        isfirst: false,
+                        islast: true,
+                        endChild: TimelineChild(
+                          ontap: () {},
+                          text: 'Socials',
+                        )),
+                  ],
+                ),
+              ),
+            ],
+          ),
         )),
       );
     });
